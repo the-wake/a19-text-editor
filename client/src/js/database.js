@@ -30,15 +30,14 @@ export const getDb = async () => {
   const jateDb = await openDB('jateDB', 1);
   const tx = jateDb.transaction('jate', 'readonly');
   const store = tx.objectStore('jate');
-  const request = store.getAll();
+  const request = store.get(1);
   const result = await request;
-  // This whole thing seems like complete jank and I can't tell why I have to do it or how IDB works.
-  console.log('Result from reloat getDb:', result);
-  if (!result[0]) {
+  // console.log('Result from reloat getDb:', result);
+  if (!result) {
     console.log('No data found.');
   } else {
-    console.log('Data found:', result[0].data);
-    return result[0].data;
+    console.log('Data found:', result.data);
+    return result.data;
   }
 };
 
